@@ -7,7 +7,7 @@ import ru.asavt.domain.Person;
 import ru.asavt.service.PersonService;
 
 @Configuration
-@ComponentScan("ru.asavt.config")
+@ComponentScan
 public class Main {
 
     public static void main(String[] args) {

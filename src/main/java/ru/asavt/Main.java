@@ -1,21 +1,40 @@
 package ru.asavt;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import ru.asavt.domain.Person;
-import ru.asavt.service.PersonService;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import ru.asavt.service.QuestionService;
+
+import java.util.Locale;
+
 
 @Configuration
 @ComponentScan
+@PropertySource("/application/application.properties")
 public class Main {
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.register(Main.class);
 
-        PersonService service = context.getBean(PersonService.class);
+        String locale;
+        if (args.length > 0) {
+            locale = args[0];
+        } else {
+            locale = Locale.getDefault().getLanguage();
+        }
+        System.setProperty("instance.locale", locale);
+        context.refresh();
 
-        Person ivan = service.getByName("Ivan");
-        System.out.println("name: " + ivan.getName() + " age: " + ivan.getAge());
+
+        QuestionService service = context.getBean(QuestionService.class);
+        service.run();
+//
+//        Person ivan = service.getByName("Ivan");
+//        System.out.println("name: " + ivan.getName() + " age: " + ivan.getAge());
+    }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
 }

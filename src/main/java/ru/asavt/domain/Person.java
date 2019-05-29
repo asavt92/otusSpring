@@ -4,6 +4,7 @@ public class Person {
 
     private String name;
     private int age;
+    private int result;
 
     public Person(String name, int age) {
         this.name = name;
@@ -16,5 +17,9 @@ public class Person {
 
     public int getAge() {
         return age;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
     }
 }

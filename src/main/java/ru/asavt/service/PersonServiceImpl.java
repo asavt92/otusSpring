@@ -1,15 +1,14 @@
 package ru.asavt.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import ru.asavt.dao.PersonDao;
 import ru.asavt.domain.Person;
 
-@Service
+@Service("personService")
 public class PersonServiceImpl implements PersonService {
 
+    @Autowired
     private final PersonDao dao;
 
     public PersonServiceImpl(PersonDao dao) {
